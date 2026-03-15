@@ -24,3 +24,5 @@ source ~/.local/share/atuin/init.nu
 $env.config = {
     show_banner: false
 }
+
+alias v = nvim

@@ -13,6 +13,6 @@ chsh -s /usr/bin/nu
 
 # Deploy dotfiles
 cd ~/dotfiles
-stow niri waybar kitty nushell fuzzel
+stow niri waybar kitty nushell fuzzel backgrounds
 
 echo "System perfectly restored. Log out and boot into Niri."
