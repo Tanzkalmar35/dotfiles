@@ -1,0 +1,39 @@
+* {
+    /* Make sure you have a Nerd Font installed for the icons! */
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: rgba(30, 30, 46, 0.85); /* Semi-transparent dark base */
+    color: #cdd6f4;
+    border-bottom: 2px solid rgba(137, 180, 250, 0.5); /* Subtle blue accent line */
+}
+
+/* Style the Niri workspaces */
+#workspaces button {
+    padding: 0 10px;
+    color: #a6adc8;
+}
+
+#workspaces button.active {
+    color: #89b4fa; /* Blue for the active workspace */
+}
+
+/* Add some pill-like backgrounds to the modules */
+#clock,
+#pulseaudio,
+#network,
+#custom-swaync {
+    background-color: #313244;
+    padding: 0 15px;
+    margin: 4px 5px;
+    border-radius: 12px; /* Smooth rounded corners */
+}
+
+#custom-swaync.dnd {
+    color: #f38ba8; /* Catppuccin Red */
+}
