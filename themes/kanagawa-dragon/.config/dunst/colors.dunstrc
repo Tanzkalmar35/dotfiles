@@ -1,0 +1,19 @@
+# dunst colors — Kanagawa Dragon
+# this file is sourced by placing it at ~/.config/dunst/colors.dunstrc
+# and including it from the base dunstrc
+
+[urgency_low]
+    background   = "#181616"
+    foreground   = "#a6a69c"
+    frame_color  = "#2d4f67"
+
+[urgency_normal]
+    background   = "#181616"
+    foreground   = "#c5c9c5"
+    frame_color  = "#7fb4ca"
+
+[urgency_critical]
+    background   = "#181616"
+    foreground   = "#c5c9c5"
+    frame_color  = "#c4746e"
+

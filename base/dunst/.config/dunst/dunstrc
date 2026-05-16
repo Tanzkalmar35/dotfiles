@@ -1,0 +1,86 @@
+# dunst config — base logic
+
+[global]
+    # display
+    monitor              = 0
+    follow               = mouse
+    width                = 320
+    height               = 120
+    origin               = top-right
+    offset               = 12x48
+    scale                = 0
+    notification_limit   = 5
+
+    # layout
+    padding              = 12
+    horizontal_padding   = 12
+    text_icon_padding    = 10
+    gap_size             = 6
+    separator_height     = 1
+    separator_color      = frame
+
+    # appearance
+    corner_radius        = 8
+    frame_width          = 1
+    icon_position        = left
+    min_icon_size        = 24
+    max_icon_size        = 36
+    icon_theme           = Papirus-Dark
+    enable_posix_regex   = true
+
+    # typography
+    font                 = JetBrainsMono Nerd Font 10
+    line_height          = 2
+    markup               = full
+    format               = "<b>%s</b>\n%b"
+    alignment            = left
+    vertical_alignment   = center
+    word_wrap            = yes
+    ellipsize            = middle
+    ignore_newline       = no
+    stack_duplicates     = true
+    hide_duplicate_count = false
+    show_indicators      = yes
+
+    # timeouts (ms)
+    show_age_threshold   = 60
+    idle_threshold       = 120
+
+    # behaviour
+    sticky_history       = yes
+    history_length       = 20
+    always_run_script    = true
+    title                = Dunst
+    class                = Dunst
+    ignore_dbusclose     = false
+
+    # mouse actions
+    mouse_left_click     = close_current
+    mouse_middle_click   = do_action, close_current
+    mouse_right_click    = close_all
+
+[experimental]
+    per_monitor_dpi = false
+
+# ── urgency levels ────────────────────────────────────────────────────────────
+
+[urgency_low]
+    timeout = 4
+    default_icon = dialog-information
+
+[urgency_normal]
+    timeout = 6
+    default_icon = dialog-information
+
+[urgency_critical]
+    timeout = 0
+    default_icon = dialog-warning
+
+# ── rules ────────────────────────────────────────────────────────────────────
+
+# mute notifications from these during focus
+[mute_low_priority]
+    appname = "Spotify"
+    urgency = low
+    timeout = 2
+

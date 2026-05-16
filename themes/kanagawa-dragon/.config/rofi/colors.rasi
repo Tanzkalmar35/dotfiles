@@ -1,0 +1,12 @@
+/* Kanagawa Dragon — rofi colors */
+
+* {
+  bg:      #181616;
+  fg:      #c5c9c5;
+  accent:  #7fb4ca;
+  subtle:  #a6a69c;
+  overlay: #2d4f67;
+  surface: #1f1d1d;
+  red:     #c4746e;
+}
+

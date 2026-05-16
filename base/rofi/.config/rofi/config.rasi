@@ -1,0 +1,134 @@
+/* rofi base config — layout and behaviour only */
+
+configuration {
+  modi:            "drun,run,window";
+  show-icons:      true;
+  icon-theme:      "Papirus-Dark";
+  display-drun:    "";
+  display-run:     "";
+  display-window:  "";
+  drun-display-format: "{name}";
+  font:            "JetBrainsMono Nerd Font 11";
+  scroll-method:   0;
+  disable-history: false;
+  fullscreen:      false;
+  hide-scrollbar:  true;
+}
+
+@import "~/.config/rofi/colors.rasi"
+
+* {
+  border-colour:           @overlay;
+  handle-colour:           @overlay;
+  background-colour:       @bg;
+  foreground-colour:       @fg;
+  alternate-background:    @surface;
+  normal-background:       @bg;
+  normal-foreground:       @fg;
+  urgent-background:       @red;
+  urgent-foreground:       @bg;
+  active-background:       @accent;
+  active-foreground:       @bg;
+  selected-normal-background: @accent;
+  selected-normal-foreground: @bg;
+  selected-urgent-background: @red;
+  selected-urgent-foreground: @bg;
+  selected-active-background: @accent;
+  selected-active-foreground: @bg;
+  alternate-normal-background: @surface;
+  alternate-normal-foreground: @fg;
+  alternate-urgent-background: @red;
+  alternate-urgent-foreground: @bg;
+  alternate-active-background: @accent;
+  alternate-active-foreground: @bg;
+}
+
+window {
+  transparency:         "real";
+  location:             center;
+  anchor:               center;
+  fullscreen:           false;
+  width:                480px;
+  x-offset:            0px;
+  y-offset:            0px;
+  border:               1px;
+  border-color:         @border-colour;
+  border-radius:        8px;
+  background-color:     @background-colour;
+  padding:              0px;
+}
+
+mainbox {
+  background-color: transparent;
+  padding:          12px;
+  spacing:          8px;
+  children:         [ inputbar, listview ];
+}
+
+inputbar {
+  background-color: @surface;
+  border-radius:    6px;
+  padding:          10px 12px;
+  spacing:          8px;
+  children:         [ prompt, entry ];
+}
+
+prompt {
+  background-color: transparent;
+  text-color:       @accent;
+  font:             "JetBrainsMono Nerd Font 11";
+}
+
+entry {
+  background-color: transparent;
+  text-color:       @foreground-colour;
+  placeholder:      "search...";
+  placeholder-color: @handle-colour;
+  cursor:           text;
+}
+
+listview {
+  background-color: transparent;
+  columns:          1;
+  lines:            8;
+  cycle:            true;
+  dynamic:          true;
+  layout:           vertical;
+  spacing:          2px;
+  scrollbar:        false;
+}
+
+element {
+  background-color: transparent;
+  border-radius:    6px;
+  padding:          8px 10px;
+  spacing:          8px;
+  orientation:      horizontal;
+}
+
+element normal.normal {
+  background-color: @normal-background;
+  text-color:       @normal-foreground;
+}
+
+element selected.normal {
+  background-color: @selected-normal-background;
+  text-color:       @selected-normal-foreground;
+}
+
+element alternate.normal {
+  background-color: @alternate-normal-background;
+  text-color:       @alternate-normal-foreground;
+}
+
+element-icon {
+  background-color: transparent;
+  size:             20px;
+}
+
+element-text {
+  background-color: transparent;
+  text-color:       inherit;
+  vertical-align:   0.5;
+}
+
