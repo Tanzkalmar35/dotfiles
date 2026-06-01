@@ -34,8 +34,43 @@ vim.cmd.colorscheme("kanagawa-dragon")
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
-vim.api.nvim_set_hl(0, "SignColumn",    { bg = "#181616" })
-vim.api.nvim_set_hl(0, "LineNr",        { fg = "#2d4f67", bg = "#181616" })
-vim.api.nvim_set_hl(0, "LineNrAbove",   { fg = "#2d4f67", bg = "#181616" })
-vim.api.nvim_set_hl(0, "LineNrBelow",   { fg = "#2d4f67", bg = "#181616" })
-vim.api.nvim_set_hl(0, "CursorLineNr",  { fg = "#7fb4ca", bg = "#181616", bold = true })
+-- Fix for gitsigns and ufo column backgrounds while preserving marker colors
+local transparent_groups = {
+    "SignColumn",
+    "FoldColumn",
+    "CursorLineSign",
+    "CursorLineFold",
+    "GitSignsAdd",
+    "GitSignsChange",
+    "GitSignsDelete",
+    "GitSignsTopdelete",
+    "GitSignsChangedelete",
+    "GitSignsUntracked",
+    "DiagnosticSignError",
+    "DiagnosticSignWarn",
+    "DiagnosticSignInfo",
+    "DiagnosticSignHint",
+}
+
+for _, group in ipairs(transparent_groups) do
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+    if ok then
+        hl.bg = "none"
+        hl.ctermbg = "none"
+        vim.api.nvim_set_hl(0, group, hl)
+    else
+        vim.api.nvim_set_hl(0, group, { bg = "none" })
+    end
+end
+
+vim.api.nvim_set_hl(0, "LineNr",       { fg = "#3d3b3b", bg = "none" })
+vim.api.nvim_set_hl(0, "LineNrAbove",  { fg = "#3d3b3b", bg = "none" })
+vim.api.nvim_set_hl(0, "LineNrBelow",  { fg = "#3d3b3b", bg = "none" })
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#a6a69c", bg = "none", bold = true })
+
+vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#3d3b3b", bg = "#1f1d1d" })
+vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#3d3b3b", bg = "#1f1d1d" })
+vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelpBorder", { fg = "#3d3b3b", bg = "#1f1d1d" })
+vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "#1f1d1d", fg = "#c5c9c5" })
+vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = "#2d4f67", fg = "#c5c9c5" })
+vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "#1f1d1d", fg = "#c5c9c5" })

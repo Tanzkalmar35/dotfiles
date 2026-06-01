@@ -1,36 +1,65 @@
 vim.pack.add({
     -- Own plugins
-    { src = "https://github.com/Tanzkalmar35/justsync.nvim" },
+    -- { src = "https://github.com/Tanzkalmar35/justsync.nvim" },
     { src = "https://github.com/Tanzkalmar35/ghostnotes" },
 
-    -- Externals
-    { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+    -- Dependencies
+    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+    { src = "https://github.com/kevinhwang91/promise-async" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/antoinemadec/FixCursorHold.nvim" },
+    { src = "https://github.com/nvim-neotest/nvim-nio" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/tpope/vim-fugitive" },
+
+    -- QoL
     { src = "https://github.com/m4xshen/autoclose.nvim" },
-    { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/mfussenegger/nvim-jdtls" },
     { src = "https://github.com/kkoomen/vim-doge" },
     { src = "https://github.com/kevinhwang91/nvim-ufo" },
-    { src = "https://github.com/kevinhwang91/promise-async" },
     { src = "https://github.com/folke/which-key.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
-    { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/mrcjkb/rustaceanvim" },
-    { src = "https://github.com/nvim-neotest/nvim-nio" },
-    { src = "https://github.com/antoinemadec/FixCursorHold.nvim" },
-    { src = "https://github.com/nvim-neotest/neotest" },
-    { src = "https://github.com/lervag/vimtex" },
-    { src = "https://github.com/catppuccin/nvim" },
-    { src = "https://github.com/rcarriga/nvim-notify" },
     { src = "https://github.com/hedyhli/outline.nvim" },
+    { src = "https://github.com/folke/trouble.nvim" },
+
+    -- Debugging
     { src = "https://github.com/mfussenegger/nvim-dap" },
     { src = "https://github.com/MironPascalCaseFan/debugmaster.nvim" },
+
+    -- Appearence
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+    { src = "https://github.com/rcarriga/nvim-notify" },
+    { src = "https://github.com/catppuccin/nvim" },
     { src = "https://github.com/rebelot/kanagawa.nvim" },
+
+    -- Languages / Unit tests
+    { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+    { src = "https://github.com/lervag/vimtex" },
+    { src = "https://github.com/mrcjkb/rustaceanvim" },
+    { src = "https://github.com/mfussenegger/nvim-jdtls" },
+    { src = "https://github.com/AlexandrosAlexiou/kotlin.nvim" },
+    { src = "https://github.com/nvim-neotest/neotest" },
+    { src = "https://github.com/codymikol/neotest-kotlin" },
 })
+
+-- ### Kotlin lsp setup
+require("kotlin").setup {
+    root_markers = {
+        "gradlew",
+        ".git",
+        "settings.gradle",
+        "settings.gradle.kts",
+    },
+    jvm_args = { "-Xmx8g" },
+    inlay_hints = {
+        enabled = true,
+    },
+}
+
+-- ### Trouble setup
+require('trouble').setup()
 
 -- ### VimTeX config
 vim.g.vimtex_quickfix_open_on_warning = 0
@@ -50,7 +79,6 @@ vim.g.vimtex_compiler_latexmk = {
 require('outline').setup({})
 require('ghostnotes').setup()
 require('oil').setup()
-require('gitsigns').setup({ signcolumn = false })
 require('mason').setup({
     ensure_installed = {
         "jdlts",
@@ -65,7 +93,8 @@ require('nvim-treesitter.configs').setup({
 
 require('neotest').setup({
     adapters = {
-        require('rustaceanvim.neotest')
+        require('rustaceanvim.neotest'),
+        require("neotest-kotlin")
     }
 })
 
@@ -181,7 +210,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- ### nvim-ufo Configs ###
 
-vim.o.foldcolumn = "1"
+vim.o.foldcolumn = "0"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
@@ -197,13 +226,10 @@ require("ufo").setup({
     end
 })
 
--- ### JustSync config
+vim.opt.rtp:append("~/Desktop/git/JustSync/extensions/neovim")
 
-require("JustSyncNvimAdapter").setup({
-    -- Just use global
-    cmd_path = "JustSync",
-    log_level = vim.log.levels.INFO
-})
+-- ### JustSync config
+require('JustSyncNvimAdapter').setup()
 
 -- ### Vim.notify
 
@@ -229,25 +255,92 @@ vim.keymap.set("t", "<C-\\>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- codelldb adapter (assumes Mason installed it)
 dap.adapters.codelldb = {
-  type = "server",
-  port = "${port}",
-  executable = {
-    command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
-    args = { "--port", "${port}" },
-  },
+    type = "server",
+    port = "${port}",
+    executable = {
+        command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+        args = { "--port", "${port}" },
+    },
 }
 
 -- Rust configs
 dap.configurations.rust = {
-  {
-    name = "Attach to process",
-    type = "codelldb",
-    request = "attach",
-    pid = require("dap.utils").pick_process, -- no () and no wrapper
-    program = function()
-      local p = vim.fn.input("Path to binary: ", vim.fn.getcwd() .. "/target/debug/JustSync")
-      vim.notify("Program: " .. p)
-      return p
-    end,
-  },
+    {
+        name = "Attach to process",
+        type = "codelldb",
+        request = "attach",
+        pid = require("dap.utils").pick_process, -- no () and no wrapper
+        program = function()
+            local p = vim.fn.input("Path to binary: ", vim.fn.getcwd() .. "/target/debug/JustSync")
+            vim.notify("Program: " .. p)
+            return p
+        end,
+    },
+}
+
+-- Gitsigns config
+require('gitsigns').setup {
+    on_attach = function(bufnr)
+        local gitsigns = require('gitsigns')
+
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({ ']c', bang = true })
+            else
+                gitsigns.nav_hunk('next')
+            end
+        end)
+
+        map('n', '[c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({ '[c', bang = true })
+            else
+                gitsigns.nav_hunk('prev')
+            end
+        end)
+
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk)
+        map('n', '<leader>hr', gitsigns.reset_hunk)
+
+        map('v', '<leader>hs', function()
+            gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end)
+
+        map('v', '<leader>hr', function()
+            gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end)
+
+        map('n', '<leader>hS', gitsigns.stage_buffer)
+        map('n', '<leader>hR', gitsigns.reset_buffer)
+        map('n', '<leader>hp', gitsigns.preview_hunk)
+        map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+
+        map('n', '<leader>hb', function()
+            gitsigns.blame_line({ full = true })
+        end)
+
+        map('n', '<leader>hd', gitsigns.diffthis)
+
+        map('n', '<leader>hD', function()
+            gitsigns.diffthis('~')
+        end)
+
+        map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
+        map('n', '<leader>hq', gitsigns.setqflist)
+
+        -- Toggles
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+        map('n', '<leader>tw', gitsigns.toggle_word_diff)
+
+        -- Text object
+        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
+    end
 }

@@ -40,3 +40,5 @@ keymap("n", "<leader>ts", "<cmd>Neotest summary<CR>")
 keymap("n", "<leader>to", "<cmd>Neotest output<CR>")
 
 keymap("n", "<leader>o", "<cmd>Outline<CR>", { desc = "Toggle Outline" })
+
+keymap("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Toggle trouble diagnostics" })

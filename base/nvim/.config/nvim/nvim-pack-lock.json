@@ -4,10 +4,6 @@
       "rev": "1900f89dc17c603eec29960f57c00bd9ae696495",
       "src": "https://github.com/antoinemadec/FixCursorHold.nvim"
     },
-    "JustSyncNvimAdapter": {
-      "rev": "85606e54e88d7a2f29f7c5e0aefca73973fd90b0",
-      "src": "https://github.com/Tanzkalmar35/JustSyncNvimAdapter"
-    },
     "TakaTime": {
       "rev": "88a86e243d50f5ae3ac8a43374d4a982cc1881aa",
       "src": "https://github.com/Rtarun3606k/TakaTime"
@@ -50,12 +46,20 @@
       "src": "https://github.com/ellisonleao/gruvbox.nvim"
     },
     "justsync.nvim": {
-      "rev": "818b3a2f5f290ad14e0d2727fbec1b5df0ee6cde",
+      "rev": "55496a60b9546a9b6cdac3e8f246afab059796d1",
       "src": "https://github.com/Tanzkalmar35/justsync.nvim"
     },
     "kanagawa.nvim": {
       "rev": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
       "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "kotlin.nvim": {
+      "rev": "7d28c1f3046be4724eec56e54e41e10de4da2abc",
+      "src": "https://github.com/AlexandrosAlexiou/kotlin.nvim"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "7b01e2974a47d489bb92f47a41e4c0088ea8f86e",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
@@ -64,6 +68,14 @@
     "neotest": {
       "rev": "72bc8f1ec62a590fb47368c81f89610e0f353e28",
       "src": "https://github.com/nvim-neotest/neotest"
+    },
+    "neotest-kotlin": {
+      "rev": "01808ea8ec7cf40952d57faceca00a154d5053a7",
+      "src": "https://github.com/codymikol/neotest-kotlin"
+    },
+    "neotest-vim-test": {
+      "rev": "75c4228882ae4883b11bfce9b8383e637eb44192",
+      "src": "https://github.com/nvim-neotest/neotest-vim-test"
     },
     "nord.nvim": {
       "rev": "80c1e5321505aeb22b7a9f23eb82f1e193c12470",
@@ -124,6 +136,10 @@
       "rev": "d543df30b61ea886cb726a18c1d1d28ea36d30cc",
       "src": "https://github.com/let-def/texpresso.vim"
     },
+    "trouble.nvim": {
+      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
+      "src": "https://github.com/folke/trouble.nvim"
+    },
     "vim-doge": {
       "rev": "03a84072ef21b205237c77986c78914395d646c3",
       "src": "https://github.com/kkoomen/vim-doge"
@@ -131,6 +147,10 @@
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "vim-test": {
+      "rev": "d29ec9976fd6b684488c908e6c7c72a3a7a0cb7f",
+      "src": "https://github.com/vim-test/vim-test"
     },
     "vimtex": {
       "rev": "82d2305ff71dfb3bd91602534cc9bb9a195bcb38",

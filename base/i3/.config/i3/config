@@ -197,8 +197,6 @@ gaps top 5px
 exec --no-startup-id ~/.config/polybar/launch.sh
 bindsym $mod+p exec "~/.config/polybar/launch.sh"
 
-exec_always feh --bg-scale ~/Wallpapers/mocha-steampunk.jpg
-
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 exec --no-startup-id dunst
@@ -206,7 +204,9 @@ exec --no-startup-id dunst
 exec --no-startup-id thunar --daemon
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
+
 exec_always xrandr --output HDMI-1 --mode 1920x1080
 exec_always xrandr --output HDMI-2 --mode 1920x1080
 exec_always xrandr --output HDMI-1 --right-of HDMI-2
 
+exec_always feh --bg-scale ~/Wallpapers/interstellar_wallpaper.png
