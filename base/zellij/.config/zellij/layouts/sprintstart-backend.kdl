@@ -1,0 +1,23 @@
+layout {
+    tab name="nvim" {
+        pane split_direction="vertical" {
+            pane size="70%" command="nvim" {
+                args "."
+                cwd "/home/fabian/Desktop/git/sprintstart-backend/"
+            }
+            pane size="30%" command="nvim" {
+                args "index.norg"
+                cwd "/home/fabian/neorg/sprinstart-backend/"
+            }
+        }
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+    tab name="terminal" {
+        pane
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+}

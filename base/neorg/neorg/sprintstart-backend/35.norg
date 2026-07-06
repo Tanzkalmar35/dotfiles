@@ -1,0 +1,9 @@
+* {https://github.com/SprintStartProject/sprintstart-backend/issues/35}[Issue #35]
+
+** TODO
+   - ( ) Add the scheduler back in
+   - ( ) Make the schedule configurable via github api
+   - ( ) Make it configurable whether to auto-update or not
+   - ( ) Update status
+
+** Notes

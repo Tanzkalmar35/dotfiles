@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# zj — Zellij Project Picker
+set -uo pipefail
+
+PROJECTS_DIR="$HOME/Desktop/git"
+LAYOUTS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zellij/layouts"
+
+if [ ! -d "$PROJECTS_DIR" ]; then
+    exec zellij
+fi
+
+projects=()
+while IFS= read -r -d '' d; do
+    projects+=("$(basename "$d")")
+done < <(find "$PROJECTS_DIR" -mindepth 1 -maxdepth 1 -type d -print0 2>/dev/null)
+
+if [ ${#projects[@]} -eq 0 ]; then
+    exec zellij
+fi
+
+selected=$(printf '%s\n' "${projects[@]}" | fzf --prompt="Zellij > " --height=40%)
+
+if [ -z "$selected" ]; then
+    exit 0
+fi
+
+cd "$PROJECTS_DIR/$selected"
+
+session_exists=$(zellij list-sessions -s 2>/dev/null | grep -c "^${selected}$" || true)
+
+if [ "$session_exists" -gt 0 ]; then
+    exec zellij attach "$selected"
+elif [ -f "$LAYOUTS_DIR/$selected.kdl" ]; then
+    exec zellij --new-session-with-layout "$selected" --session "$selected"
+else
+    exec zellij --session "$selected"
+fi

@@ -26,3 +26,5 @@ $env.config = {
 }
 
 alias v = nvim
+alias z = zellij
+alias zj = ~/.local/bin/zj
