@@ -9,14 +9,14 @@ vim.pack.add({
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/antoinemadec/FixCursorHold.nvim" },
     { src = "https://github.com/nvim-neotest/nvim-nio" },
-    { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/tpope/vim-fugitive" },
 
     -- QoL
     { src = "https://github.com/m4xshen/autoclose.nvim" },
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+    { src = "https://github.com/ibhagwan/fzf-lua" },
+    { src = "https://github.com/saghen/blink.cmp",                   version = vim.version.range("^1") },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-    { src = "https://github.com/kkoomen/vim-doge" },
+    { src = "https://github.com/jeangiraldoo/codedocs.nvim" },
     { src = "https://github.com/kevinhwang91/nvim-ufo" },
     { src = "https://github.com/folke/which-key.nvim" },
     { src = "https://github.com/stevearc/oil.nvim" },
@@ -30,19 +30,57 @@ vim.pack.add({
     -- Appearence
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/rcarriga/nvim-notify" },
-    { src = "https://github.com/catppuccin/nvim" },
     { src = "https://github.com/rebelot/kanagawa.nvim" },
 
-    -- Languages / Unit tests
+    -- Languages / Unit tests / Net client testing
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/lervag/vimtex" },
     { src = "https://github.com/mrcjkb/rustaceanvim" },
     { src = "https://github.com/mfussenegger/nvim-jdtls" },
     { src = "https://github.com/AlexandrosAlexiou/kotlin.nvim" },
+    { src = "https://github.com/mistweaverco/kulala.nvim" },
+    { src = "https://github.com/rcasia/neotest-java" },
+    { src = "https://github.com/weilbith/neotest-gradle" },
     { src = "https://github.com/nvim-neotest/neotest" },
-    { src = "https://github.com/codymikol/neotest-kotlin" },
+
+    -- Notes
+    { src = "https://github.com/MunifTanjim/nui.nvim" },
+    { src = "https://github.com/pysan3/pathlib.nvim" },
+    { src = "https://github.com/nvim-neorg/lua-utils.nvim" },
+    { src = "https://github.com/nvim-neorg/neorg" },
 })
+
+require("neotest").setup({
+    adapters = {
+        require("neotest-java")({
+            -- picked up automatically, but explicit is fine:
+            incremental_build = true, -- only recompile changed files via jdtls
+            jvm_args = { "-Xmx4g" },  -- Spring context tests can be memory-hungry
+        }),
+        require("neotest-gradle"),
+    },
+})
+
+-- ### Neorg
+
+require('neorg').setup {
+    lazy = false,
+    version = "*",
+    load = {
+        ["core.defaults"] = {},
+        ["core.dirman"] = {
+            config = {
+                workspaces = {
+                    neorg = "~/neorg",
+                    sprintstart = "~/neorg/sprintstart/",
+                    justsync = "~/neorg/justsync/"
+                },
+            }
+        },
+        ["core.concealer"] = {},
+    }
+}
 
 -- ### Kotlin lsp setup
 require("kotlin").setup {
@@ -52,10 +90,11 @@ require("kotlin").setup {
         "settings.gradle",
         "settings.gradle.kts",
     },
-    jvm_args = { "-Xmx8g" },
+    jvm_args = { "-Xmx16g" },
     inlay_hints = {
         enabled = true,
     },
+    folding = { enbabled = true },
 }
 
 -- ### Trouble setup
@@ -89,13 +128,6 @@ require('autoclose').setup({})
 require('nvim-treesitter.configs').setup({
     ensure_installed = { "lua", "go", "rust", "java", "latex", "bibtex" },
     highlight = { enable = true }
-})
-
-require('neotest').setup({
-    adapters = {
-        require('rustaceanvim.neotest'),
-        require("neotest-kotlin")
-    }
 })
 
 require('blink.cmp').setup({
@@ -229,7 +261,7 @@ require("ufo").setup({
 vim.opt.rtp:append("~/Desktop/git/JustSync/extensions/neovim")
 
 -- ### JustSync config
-require('JustSyncNvimAdapter').setup()
+require('justsync').setup()
 
 -- ### Vim.notify
 

@@ -1,0 +1,110 @@
+* Intelligent Systems & Dynamic models
+
+** The base model
+*** 30 ECTS - Variable
+    My assignments, including when which one drops and how hard each one is, scaled for a normal semester.
+    Used for the task inflow - driving cognitive workload up.
+
+    Uses PULSE_TRAIN for scheduled task drops. PULSE_TRAIN(start, duration, repeat_interval, end)
+
+    @math
+        &33 \cdot \text{PULSE TRAIN}(224, 1, 168, 1176) + \\
+        &57 \cdot \text{PULSE TRAIN}(176, 1, 336, 1176) + \\
+        &17 \cdot \text{PULSE TRAIN}(344, 1, 336, 1176) + \\
+        &17 \cdot \text{PULSE TRAIN}(368, 1, 336, 1176)
+    @end
+
+    The formula represents my schedule from last semester, roughly scaled towards 30 ECTS. The start value consists of when it drops, 
+    measured in hours deep into the simulation, + the offset (8am on monday = +8, tuesday +24 etc). A settling week before 
+    the first assignments drop is added.
+
+    The repeat interval is counted in hours too (168 hours = 1 week, 336 = 2 weeks).
+
+    The prefix is the amount of load_units that's being dropped, eg how hard is the assignment.
+
+*** 45 ECTS - Variable
+    Is the same as 30 ECTS, just scaled differently.
+
+*** Task Inflow - Flow
+    The actual inflow of assignment tasks. Atm either uses 30 ECTS or 45 ECTS.
+
+*** Cognitive Workload - Stock
+    The main, most relevant stock. This stock displays the actual current workload of the student.
+
+    @math
+        Task Inflow - Completion Rate
+    @end
+
+    Initial value of 15, to display any carry-over workload from last semester, life management, whatever.
+
+*** Completion Rate - Flow
+    The completion rate defines how fast the student can drain workload from the `Cognitive Workload` stock, eg. how
+    fast the student can finish assignments.
+
+    @math
+        (Cognitive_Workload/Workload_Drain_Time) * MAX(0.1, Energy / 100) * Is_Awake
+    @end
+
+    *Why?*
+    - $(Cognitive_Workload/Workload_Drain_Time)$ basically defines pressure. This part increases the completion rate, the
+    more cognitive workload the student has. That's because, on higher pressure, the student is forced to get more things done.
+    - $MAX(0.1, Energy / 100)$ converts the available energy to a decimal, ranging from 0-1, with a safe-guard so negative can't have negative impact.
+    - $IsAwake$ is just a safe guard, making sure that when the student sleeps, he actually doesn't drain workload.
+
+*** Max Recovery Rate - Variable
+    No matter how good recovery is, it can only get so good. Value of 10.
+
+*** Clock - Variable
+    Models a simulation clock - hour based - used for time-keeping, sleep and awake.
+
+*** Hour of Day - Variable
+    Uses the Clock to determine which our of the simulation day it is. Used for determining wether the student sleeps or
+    is awake.
+
+*** Is Sleeping - Variable
+    1, if the Hour of Day is between 23 and 7 o'clock, otherwise 0. 
+    We just lazily assume the student sleeps strictly from 23:00-7:00.
+
+*** Is Awake - Variable
+    Determines wether the student is awake. Calculated as the exact opposite of Is Sleeping.
+
+*** Depletion Per Load - Variable
+    Determines how much energy is consumed per workload. Currently set as 0.01.
+
+*** Depletion Baseline - Variable
+    Just living on it's own drains energy. Currently set as 0.5.
+
+*** Energy Recovery - Flow
+    How quickly the student gains energy again. Currently set to only gain energy when sleeping.
+    The student gains more energy when he's more tired, less if less tired.
+
+    @math
+        \text{MAX_RECOVERY_RATE} * (1 - Energy / 100) * Is_Sleeping
+    @end
+
+*** Energy - Stock
+    The main indicator of how much energy the student currently has. Calculated by simply weighing input vs output.
+    The initial value is set to 75, while the spectrum is 0-100, so the amount of energy can be seen as percentile.
+    
+    @math
+        \text{Energy_Recovery}-\text{Energy_Depletion}
+    @end
+
+*** Energy Depletion - Flow
+    How fast the student loses energy.
+
+    @math
+        IF THEN ELSE(Energy > 0, (Depletion_Baseline + Cognitive_Workload * Depletion_Per_Load) * Is_Awake, 0)
+    @end
+
+    *In detail:*
+
+    - $IF THEN ELSE(Energy > 0, ..., 0)$ - Just a safety guard making sure that we don't drain too much energy so that
+      the student has negative energy
+    - $Depletion_Baseline + Cognitive_Workload * Depletion_Per_Load$ - Adds the baseline (how much energy the student 
+      spends by just living) together with the amount of work the student currently has, multiplied by the depletion per load.
+      This basically means, each work unit the student has currently, converted to energy it takes.
+
+    *Important note:*
+
+    The more work load the student has, the faster energy depletes.

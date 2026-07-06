@@ -96,3 +96,43 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "http", "rest", "javascript", "lua" },
+  callback = function(args)
+    local kulala = require("kulala")
+
+    kulala.setup({
+      global_keymaps = false,
+      global_keymaps_prefix = "<leader>R",
+      kulala_keymaps_prefix = "",
+    })
+
+    vim.keymap.set("n", "<leader>Rs", kulala.run, { desc = "Send request", buffer = args.buf })
+    vim.keymap.set("n", "<leader>Ra", kulala.run_all, { desc = "Send all requests", buffer = args.buf })
+    vim.keymap.set("n", "<leader>Rb", kulala.scratchpad, { desc = "Open scratchpad", buffer = args.buf })
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TSUpdate",
+  callback = function()
+    local parsers = require("nvim-treesitter.parsers")
+
+    parsers.norg = {
+      install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg",
+        files = { "src/parser.c" },
+        branch = "main",
+      },
+    }
+
+    parsers.norg_meta = {
+      install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
+        files = { "src/parser.c" },
+        branch = "main",
+      },
+    }
+  end,
+})

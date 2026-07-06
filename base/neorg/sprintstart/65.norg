@@ -1,0 +1,11 @@
+* {https://github.com/SprintStartProject/sprintstart-backend/issues/65}[Issue #65]
+
+** Notes
+   - Waiting for Daria with the initial workflow
+
+** Todos
+   - (x) Add firstConfiguredAt & lastConfiguredAt to connector config
+   - (x) Rework `@PostConstruct` for connectors service
+   - (x) Define http tests
+   - ( ) Docs
+   - ( ) Unit tests
