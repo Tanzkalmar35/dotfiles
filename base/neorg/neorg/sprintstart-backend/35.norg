@@ -1,9 +1,16 @@
 * {https://github.com/SprintStartProject/sprintstart-backend/issues/35}[Issue #35]
 
 ** TODO
-   - ( ) Add the scheduler back in
-   - ( ) Make the schedule configurable via github api
-   - ( ) Make it configurable whether to auto-update or not
+   - (x) Add in the GitHub configs controller - configure interval & auto-update
+   - (x) Store all that in db
+   - (x) Make it configurable whether to auto-update or not
+   - (-) Implement the service to above
    - ( ) Update status
+   - ( ) Add the scheduler back in
 
 ** Notes
+*** What to configure
+    - Whether to auto-update or just check
+    - Auto-update (or check) interval
+
+*** Based on the schedule (strict) we receive, we have to convert to a valid chron schedule.

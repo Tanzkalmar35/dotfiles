@@ -14,7 +14,7 @@ vim.pack.add({
     -- QoL
     { src = "https://github.com/m4xshen/autoclose.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/saghen/blink.cmp",                   version = vim.version.range("^1") },
+    { src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("^1") },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
     { src = "https://github.com/jeangiraldoo/codedocs.nvim" },
     { src = "https://github.com/kevinhwang91/nvim-ufo" },
@@ -43,6 +43,7 @@ vim.pack.add({
     { src = "https://github.com/rcasia/neotest-java" },
     { src = "https://github.com/weilbith/neotest-gradle" },
     { src = "https://github.com/nvim-neotest/neotest" },
+    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 
     -- Notes
     { src = "https://github.com/MunifTanjim/nui.nvim" },
@@ -60,6 +61,12 @@ require("neotest").setup({
         }),
         require("neotest-gradle"),
     },
+})
+
+-- ### Render markdown
+
+require('render-markdown').setup({
+    file_types = { 'markdown', 'kotlin' },
 })
 
 -- ### Neorg

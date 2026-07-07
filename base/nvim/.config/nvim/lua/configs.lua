@@ -24,6 +24,7 @@ opt.undofile = true -- Enable persistent undo
 opt.completeopt = { "menuone", "popup", "noinsert" } -- Options for completion menu
 opt.winborder = "rounded" -- Use rounded borders for windows
 opt.hlsearch = false -- Disable highlighting of search results
+opt.conceallevel = 2
 
 vim.g.netrw_liststyle = 1 -- Use the long listing view
 vim.g.netrw_sort_by = "size" -- Sort files by file size

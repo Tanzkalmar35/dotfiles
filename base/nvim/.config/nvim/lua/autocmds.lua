@@ -112,3 +112,22 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "<leader>Rb", kulala.scratchpad, { desc = "Open scratchpad", buffer = args.buf })
     end,
 })
+
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+    pattern = "*.kt",
+    callback = function()
+        -- 1. Create a custom highlight group linked to 'Keyword' (usually purple/pink)
+        vim.api.nvim_set_hl(0, "KDocTags", { link = "Keyword", default = true })
+
+        -- 2. Prevent duplicate highlights from stacking if you reopen the file
+        for _, match in ipairs(vim.fn.getmatches()) do
+            if match.group == "KDocTags" then
+                vim.fn.matchdelete(match.id)
+            end
+        end
+
+        -- 3. Paint the color directly onto the window UI
+        -- \v\@[a-zA-Z]+ finds @param, @return, @throws, etc.
+        vim.fn.matchadd("KDocTags", "\\v\\@[a-zA-Z]+")
+    end,
+})
