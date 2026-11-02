@@ -189,6 +189,10 @@
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"
     },
+    "typst-preview.nvim": {
+      "rev": "1c2e19486397be1c580b560fc50ee36abe329c46",
+      "src": "https://github.com/chomosuke/typst-preview.nvim"
+    },
     "vim-doge": {
       "rev": "03a84072ef21b205237c77986c78914395d646c3",
       "src": "https://github.com/kkoomen/vim-doge"

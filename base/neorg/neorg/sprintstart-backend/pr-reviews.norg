@@ -1,0 +1,13 @@
+* PR Reviews 16.7.26 - {https://github.com/SprintStartProject/sprintstart-backend/pull/122}[PR #122]
+
+** Main TODO: Persisting citations
+*** `GetChatMessagesResponse.kt`
+    - Moved `internal data class CitationResponse` down to below its usage
+    - Changed visibility of `Citation.toResponse()` to private as only used in this class and moved below usage
+*** `ChatMessage.kt`
+    - Changed `List<Citation>` to `MutableList<Citation>` because it should be mutable (and intellij complained)
+*** `Citation.kt`
+    - Added `@Column(...)` annotations that:
+      1. Convert the camelCase names into snake_case
+      2. Define nullability behavior
+

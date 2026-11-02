@@ -1,0 +1,44 @@
+{https://github.com/SprintStartProject/sprintstart-backend/issues/149}[#149]
+
+* What's needed 
+  - `POST /api/v1/jira/connect` with body including url
+  - `GET /api/v1/jira/{instance}`
+  - `POST/PUT/PATCH /api/v1/jira/{instance}/update`
+
+  - `PUT/PATCH /api/v1/jira/configure/{id}` with body including schedule, autoupdate
+  - `GET /api/v1/jira/{instance}/config` - maybe merge with overall get
+
+  - `POST /api/v1/jira/token` with body including token, token name
+  - `PUT/PATCH /api/v1/jira/{tokenName}` with body including new token / new token name
+  - `GET /api/v1/jira/{tokenName}`
+
+** The service
+*** Connect a JIRA instance
+    - Body: `ConnectJiraInstanceRequest`
+    @code json
+        {
+          "name": "asd",
+          "url": "asd",
+          "tokenName": "asd",
+          "projectId": "asd"
+        }
+    @end
+
+    - Fetches following data types:
+    -- Issues
+    --- Query specific issue
+        `GET /rest/api/3/issue/{issueId}` for retrieving a specific issue
+    --- Query all issues
+        `GET /rest/api/3/search` using JQL for searching all issues or with filter for project etc
+    -- Changelogs
+       `GET /rest/api/3/issue/{issueId}/changelog` or `expand=true` on JQL
+    -- Users
+     --- Query specific user
+         `GET /rest/api/3/user`
+    --- Query all users
+        `GET /rest/api/3/users/search`
+    -- fields
+
+    -- projects
+
+

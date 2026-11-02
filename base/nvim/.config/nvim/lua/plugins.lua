@@ -22,6 +22,8 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/hedyhli/outline.nvim" },
     { src = "https://github.com/folke/trouble.nvim" },
+    { src = "https://github.com/sindrets/diffview.nvim" },
+    { src = "https://github.com/chomosuke/typst-preview.nvim" },
 
     -- Debugging
     { src = "https://github.com/mfussenegger/nvim-dap" },
@@ -44,6 +46,7 @@ vim.pack.add({
     { src = "https://github.com/weilbith/neotest-gradle" },
     { src = "https://github.com/nvim-neotest/neotest" },
     { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
 
     -- Notes
     { src = "https://github.com/MunifTanjim/nui.nvim" },
@@ -122,7 +125,25 @@ vim.g.vimtex_compiler_latexmk = {
     },
 }
 
-require('outline').setup({})
+require("outline").setup({
+    symbols = {
+        filter = {
+            default = {
+                "Class",
+                "Constructor",
+                "Enum",
+                "Function",
+                "Interface",
+                "Method",
+                "Module",
+                "Namespace",
+                "Struct",
+                "Trait",
+            },
+        },
+    },
+})
+
 require('ghostnotes').setup()
 require('oil').setup()
 require('mason').setup({
@@ -265,10 +286,10 @@ require("ufo").setup({
     end
 })
 
-vim.opt.rtp:append("~/Desktop/git/JustSync/extensions/neovim")
+-- vim.opt.rtp:append("~/Desktop/git/JustSync/extensions/neovim")
 
 -- ### JustSync config
-require('justsync').setup()
+-- require('justsync').setup()
 
 -- ### Vim.notify
 
@@ -383,3 +404,25 @@ require('gitsigns').setup {
         map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
     end
 }
+
+-- ### Rust LSP (rustaceanvim)
+-- rustaceanvim replaces nvim-lspconfig's `rust_analyzer`: it is a filetype plugin,
+-- so it needs no `setup()` call and must not be enabled through `vim.lsp.enable`.
+-- Setting `vim.g.rustaceanvim` here (at startup) is enough. See `:h rustaceanvim.config`.
+vim.g.rustaceanvim = {
+    server = {
+        default_settings = {
+            ['rust-analyzer'] = {
+                -- Run `cargo check` in the background and report the results as
+                -- diagnostics on save. (`checkOnSave` is deprecated in rust-analyzer.)
+                check = {
+                    command = "check", -- or "clippy" if you prefer clippy warnings
+                },
+            },
+        },
+    },
+}
+
+require("typst-preview").setup({
+    open_cmd = "flatpak run app.zen_browser.zen %s",
+})

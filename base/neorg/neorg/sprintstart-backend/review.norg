@@ -1,0 +1,19 @@
+* Overall review
+** Todos
+   - (x) Currently artifacts are stored via ingestion when ingested through connector and via upload module if done like that. Fix.
+   - (x) `ArtifactLookupService.kt` (chat module) refactor to api methods 
+   - (x) `ChatService.kt` depends on connectors/ module's `ConnectorConfigurationService`
+   - (x) Apply `@Tracked(...)` annotations to services
+   - (x) Understand `ProjectSourceApi`
+   - (x) Fix tests
+
+** Status
+   - (x) REVIEWED: Chat module
+   - (x) REVIEWED: Connectors module / GitHub module
+   - (x) PENDING: Ingestion module
+   - (x) PENDING: Insights module
+   - (x) PENDING: onboarding module
+   - (x) PENDING: shared module
+   - (x) PENDING: upload module
+   - (x) PENDING: user module
+

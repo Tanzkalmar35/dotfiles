@@ -1,0 +1,8 @@
+default {
+  terminal "python3 /home/fabian/Desktop/git/bgsim/test.py"
+  term_cols 0
+  term_rows 0
+  term_font_size 14
+  term_fade 0
+  term_bloom 0
+  }
